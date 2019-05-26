@@ -1,22 +1,17 @@
-package sample;
+package Controller;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class SettingWindowController implements Initializable {
@@ -46,7 +41,7 @@ public class SettingWindowController implements Initializable {
     }
     public void showMainWindow(int userInput, int pieceInput) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxmls/mainWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/mainWindow.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(loader.load()));
             newStage.setTitle("윷놀이 게임 (" + userInput + "명, " + pieceInput + "개의 말)");

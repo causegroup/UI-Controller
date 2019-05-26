@@ -1,4 +1,4 @@
-package sample;
+package Controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ public class Main extends Application {
         start : show SettingWindow
         SettingWindow : get two input number. # of players and # of gamepieces that a player have.
         */
-        Parent root = FXMLLoader.load(getClass().getResource("/resources/fxmls/settingWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/View/settingWindow.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("Game Setting - 유저 수 / 말 수");
         primaryStage.show();

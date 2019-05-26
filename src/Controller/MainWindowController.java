@@ -1,6 +1,5 @@
-package sample;
+package Controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -126,7 +125,7 @@ public class MainWindowController implements Initializable {
     public void selectResult() {
         // show new window : SelectYutWindow
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxmls/selectYutWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/selectYutWindow.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene((Pane)loader.load()));
             newStage.setTitle("선택하여 윷 던지기");
