@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SelectYutWindowController">
+   <center>
+      <GridPane prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox prefHeight="140.0" prefWidth="840.0">
+               <children>
+                  <ImageView fitHeight="175.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true" fx:id="backdoe">
+                     <image>
+                        <Image url="@../images/backdoe.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="175.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true" fx:id="doe">
+                     <image>
+                        <Image url="@../images/doe.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="175.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true" fx:id="gae">
+                     <image>
+                        <Image url="@../images/gae.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="175.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true" fx:id="girl">
+                     <image>
+                        <Image url="@../images/girl.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="175.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true" fx:id="yut">
+                     <image>
+                        <Image url="@../images/yut.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="175.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true" fx:id="mo">
+                     <image>
+                        <Image url="@../images/mo.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </center>
+   <bottom>
+      <Pane prefHeight="142.0" prefWidth="840.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="349.0" layoutY="31.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="142.0" text="선택" fx:id="selectButton">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </bottom>
+   <top>
+      <Pane prefHeight="110.0" prefWidth="840.0" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <VBox prefHeight="348.0" prefWidth="158.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <VBox prefHeight="349.0" prefWidth="158.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
