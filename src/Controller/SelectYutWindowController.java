@@ -70,7 +70,6 @@ public class SelectYutWindowController implements Initializable {
                 setDefaultOpacity();
                 mo.setOpacity(1.0);
                 break;
-
         }
         this.yutNum = num;
         System.out.println(this.yutNum);

@@ -56,6 +56,12 @@
             <Circle fx:id="nineteen" fill="WHITE" layoutX="581.0" layoutY="842.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
             <Circle fx:id="twentyFour" fill="WHITE" layoutX="381.0" layoutY="342.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
             <Circle fx:id="twentySix" fill="WHITE" layoutX="381.0" layoutY="592.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <Pane layoutX="78.0" layoutY="43.0" prefHeight="97.0" prefWidth="105.0" />
+            <SubScene height="293.0" layoutX="321.0" layoutY="208.0" width="327.0">
+              <root>
+                <Region />
+              </root>
+            </SubScene>
          </children>
       </Group>
       <ImageView fx:id="result" fitHeight="252.0" fitWidth="268.0" layoutX="971.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />

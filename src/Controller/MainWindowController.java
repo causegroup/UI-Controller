@@ -1,5 +1,6 @@
 package Controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,6 +63,7 @@ public class MainWindowController implements Initializable {
     @FXML private Circle twentyNine;
     @FXML private Circle[] circles = new Circle[29];
 
+
     /*
     * userNum : # of players.
     * pieceNum : # of gamepieces that a player have.
@@ -75,7 +77,6 @@ public class MainWindowController implements Initializable {
         // initialize MainWindow.
 
         setCircles();
-
         setGameBoard();
 
         randomButton.setOnAction(event -> randomResult(new Random().nextInt(6)+1));
@@ -113,8 +114,8 @@ public class MainWindowController implements Initializable {
                 setResult("resources/images/backdoe.jpg");
                 break;
         }
-
     }
+
     public void setResult(String result) {
         // change thrown result image.
         Image image = new Image(result);
@@ -130,7 +131,6 @@ public class MainWindowController implements Initializable {
             newStage.setScene(new Scene((Pane)loader.load()));
             newStage.setTitle("선택하여 윷 던지기");
             newStage.show();
-
         }
         catch (IOException ex){
             ex.printStackTrace();
@@ -190,6 +190,5 @@ public class MainWindowController implements Initializable {
 
     public void setGameBoard() {
         // Should initialize circles[] state : # of gamepieces, who has that gamepiece.
-
     }
 }
