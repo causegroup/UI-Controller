@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.GameModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -26,11 +27,16 @@ public class SelectYutWindowController implements Initializable {
     @FXML private ImageView yut;
     @FXML private ImageView mo;
 
-    int yutNum;
+    private int yutNum;
+    private GameModel gameModel;
+
+    public SelectYutWindowController (GameModel input) {
+        this.gameModel = input;
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
        setDefaultOpacity();
-        backdoe.setOnMouseClicked(event -> setYutNum(6, event));
+        backdoe.setOnMouseClicked(event -> setYutNum(-1, event));
         doe.setOnMouseClicked(event -> setYutNum(1, event));
         gae.setOnMouseClicked(event -> setYutNum(2, event));
         girl.setOnMouseClicked(event -> setYutNum(3, event));
@@ -73,10 +79,12 @@ public class SelectYutWindowController implements Initializable {
 
         }
         this.yutNum = num;
-        System.out.println(this.yutNum);
+
+        //System.out.println(this.yutNum);
     }
     public void closeWindow(ActionEvent event) {
         // close SelectYutWindow.
+        gameModel.selectYutClickEvent(this.yutNum);
         Button tmpButton = (Button) event.getSource();
         Stage oldStage = (Stage) tmpButton.getScene().getWindow();
         oldStage.close();
