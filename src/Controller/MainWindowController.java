@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -102,11 +103,10 @@ public class MainWindowController implements Initializable, Observer {
         // initialize MainWindow.
         gameModel.init(userNum, pieceNum);
         gameModel.start();
-
-
-        setTurn();
         setPlayers();
         setCircles();
+
+        setTurn();
         setYutResult();
 
         randomButton.setOnAction(event -> randomResult());
