@@ -12,8 +12,10 @@ import java.util.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -81,6 +83,7 @@ public class MainWindowController implements Initializable, Observer {
     @FXML private Circle[] circles = new Circle[29];
     @FXML private HBox[] hBoxes = new HBox[4];
     @FXML private Label[] playerLabels = new Label[4];
+    @FXML private ImageView[][] node0 = new ImageView[4][5];
 
     /*
     * userNum : # of players.
@@ -183,7 +186,7 @@ public class MainWindowController implements Initializable, Observer {
                 setResult("resources/images/backdoe.jpg");
                 break;
         }
-        System.out.println(this.getYutNum());
+
     }
     public void setResult(String result) {
         // change thrown result image.
@@ -267,10 +270,10 @@ public class MainWindowController implements Initializable, Observer {
                 tmp.setImage(tmpImg);
                 tmp.setFitHeight(100);
                 tmp.setFitWidth(69.6);
+                node0[i][j] = tmp;
 
                 Node tmpNode = players.get(i).getGamePieceById(j).getNode();
 
-                System.out.println(tmpNode.nodeID);
                 if(!initialize) {
                     hBoxes[i].getChildren().remove(j);
                 }
@@ -278,13 +281,14 @@ public class MainWindowController implements Initializable, Observer {
                     //do nothing
                 }
                 else if(tmpNode.nodeID == 0) {
-                    hBoxes[i].getChildren().addAll(tmp);
+                    hBoxes[i].getChildren().addAll(node0[i][j]);
                 }
                 else {
                     tmp.setOpacity(0.5);
-                    hBoxes[i].getChildren().addAll(tmp);
+                    hBoxes[i].getChildren().addAll(node0[i][j]);
                 }
             }
+
             playerLabels[i].setText("Player " + (i+1));
         }
         this.initialize = false;
@@ -312,29 +316,40 @@ public class MainWindowController implements Initializable, Observer {
                 showMovableNodes();
                 break;
         }
-
     }
 
     public void showNodes() {
-        /*for(int i = 1; i < 30; i++) {
-            for(int j = 0; j < gameBoard.nodes[i].gamePiecesOn.size(); j++)
-                switch(gameBoard.nodes[i].gamePiecesOn.get(0).owner.getPlayerID()) {
-                    case 0:
-                        for(int )
-                    case 1:
-                    case 2:
-                    case 3:
-
-                }
-
-        }*/
+        for(int i = 1; i < 30; i++) {
+            try {
+                int tmpPlayerID = gameBoard.nodes[i].gamePiecesOn.get(0).owner.getPlayerID();
+                int tmpPieceNum = gameBoard.nodes[i].gamePiecesOn.size();
+                Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum]);
+                circles[i - 1].setFill(new ImagePattern(tmp));
+            } catch(IndexOutOfBoundsException e) {
+                //do nothing
+            }
+        }
     }
-
     public void showPieces() {
-
+        for(int i = 0; i < pieceNum; i++) {
+            GamePiece tmp = players.get(this.turn - 1).getGamePieceById(i);
+            System.out.println(tmp.pieceID + ":" + tmp.getNode().nodeID);
+            if (tmp.getNode().nodeID == 0) {
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setBrightness(-0.5);
+                node0[this.turn - 1][i].setEffect(colorAdjust);
+                node0[this.turn - 1][i].setOnMouseClicked(event -> gameModel.pieceOutsideBoardClickEvent(tmp));
+            } else if (tmp.getNode().nodeID > 29) {
+                //do nothing
+            } else {
+                circles[tmp.getNode().nodeID].setStroke(Color.BLUE);
+                circles[tmp.getNode().nodeID].setOnMouseClicked(event -> gameModel.nodeClickEvent(tmp.getNode()));
+            }
+        }
     }
 
     public void showMovableNodes() {
+
 
     }
 

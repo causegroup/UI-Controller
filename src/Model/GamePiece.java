@@ -4,7 +4,7 @@ public class GamePiece{
     public Player owner;
     public int pieceID;
     private Node node;
-    GamePiece(Player owner, int pieceID){
+    public GamePiece(Player owner, int pieceID){
         this.owner = owner;
         this.pieceID  = pieceID;
         node = null;
