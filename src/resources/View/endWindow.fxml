@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="226.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="85.0" layoutY="36.0" prefHeight="61.0" prefWidth="256.0" text="Label" fx:id="winnerLabel">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="quitButton" layoutX="269.0" layoutY="144.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="144.0" text="종료" />
+      <Button fx:id="reGameButton" layoutX="13.0" layoutY="144.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="144.0" text="다시하기" />
+   </children>
+</AnchorPane>

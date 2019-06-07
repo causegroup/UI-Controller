@@ -106,6 +106,7 @@ public class MainWindowController implements Initializable, Observer {
     ArrayList<Integer> yutNums = new ArrayList<Integer>();
     ArrayList<Player> players = new ArrayList<Player>();
     String[][] pieceUrls = new String[4][5];
+    Player winner;
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -135,7 +136,11 @@ public class MainWindowController implements Initializable, Observer {
             this.phase = tmpGameModel.getPhase();
             this.yutNums = tmpGameModel.getYutNums();
             this.players = tmpGameModel.getPlayers();
-
+            this.winner = tmpGameModel.getWinner();
+            if(this.yutNums.size() > 0) {
+                setResult(this.yutNums.get(this.yutNums.size()-1));
+            }
+            checkWinner();
             setTurn();
             setYutResult();
             setPlayers();
@@ -167,7 +172,12 @@ public class MainWindowController implements Initializable, Observer {
 
         this.yutNum = gameModel.randomYutClickEvent();
 
-        switch(this.yutNum){
+        setResult(this.yutNum);
+
+    }
+    public void setResult(int result) {
+        // change thrown result image.
+        switch(result){
             case 1:
                 setResult("resources/images/doe.jpg");
                 break;
@@ -190,10 +200,8 @@ public class MainWindowController implements Initializable, Observer {
 
     }
     public void setResult(String result) {
-        // change thrown result image.
         Image image = new Image(result);
         this.result.setImage(image);
-
     }
 
     public void selectResult() {
@@ -391,6 +399,25 @@ public class MainWindowController implements Initializable, Observer {
         }
 
 
+    }
+
+    public void checkWinner() {
+        if(winner == null) {
+            //do nothing
+        }
+        else {
+            try {
+                String winnerMsg = "Player " + winner.getPlayerID() + " win!\nRegame?";
+                EndWindowController endWindowController = new EndWindowController(winnerMsg);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/settingWindow.fxml"));
+                loader.setController(endWindowController);
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(loader.load()));
+                newStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
