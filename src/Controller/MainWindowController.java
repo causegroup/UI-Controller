@@ -334,10 +334,16 @@ public class MainWindowController implements Initializable, Observer {
             try {
                 int tmpPlayerID = gameBoard.nodes[i].gamePiecesOn.get(0).owner.getPlayerID();
                 int tmpPieceNum = gameBoard.nodes[i].gamePiecesOn.size();
-                Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum-1]);
-                circles[i - 1].setFill(new ImagePattern(tmp));
+
+                if(tmpPieceNum > 0){
+                    Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum-1]);
+                    circles[i - 1].setFill(new ImagePattern(tmp));
+                }
+                else{
+                    System.out.println("nodeID: " + i);
+                }
             } catch(IndexOutOfBoundsException e) {
-                //do nothing
+                circles[i-1].setFill(Color. WHITE);
             }
         }
     }
@@ -357,42 +363,49 @@ public class MainWindowController implements Initializable, Observer {
             }
         }
     }
+    public void showMovableNodes() {
+        try {
+            ArrayList<Node> movable = gameModel.getMovableNodes();
+            for(int j=0; j<movable.size(); j++) {
+                Node tmp = gameBoard.nodes[movable.get(j).nodeID];
+                if(tmp.nodeID == 30)
+                    System.out.println(tmp.nodeID);
+                if(movable.get(j).nodeID == 0) {
+                    System.out.println("error");
+                }
+                else {
+                    if(tmp.nodeID == 30) {
+                        c30.setStroke(Color. GREEN);
+                    }
+                    else {
+                        circles[movable.get(j).nodeID - 1].setStroke(Color.RED);
+                    }
+                    circles[movable.get(j).nodeID - 1].setOnMouseClicked(event -> cleanCircle(tmp));
+
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //do nothing
+        }
+    }
     public void cleanOutside(GamePiece input) {
+        clean();
+        gameModel.pieceOutsideBoardClickEvent(input);
+    }
+    public void cleanCircle(Node input) {
+        clean();
+        gameModel.nodeClickEvent(input);
+    }
+    public void clean() {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0);
         hBoxes[turn-1].setOnMouseClicked(null);
         hBoxes[turn-1].setEffect(colorAdjust);
 
-        gameModel.pieceOutsideBoardClickEvent(input);
-    }
-    public void cleanCircle(Node input) {
         for(int i = 0; i < 30; i++) {
             circles[i].setOnMouseClicked(null);
             circles[i].setStroke(Color.BLACK);
         }
-        gameModel.nodeClickEvent(input);
-    }
-
-    public void showMovableNodes() {
-        try {
-            ArrayList<Node> movable = gameModel.getMovableNodes();
-            for(int j=0; j<movable.size(); j++) {
-                if(movable.get(j).nodeID == 0) {
-                    System.out.println("error");
-                }
-                else {
-                    Node tmp = gameBoard.nodes[movable.get(j).nodeID];
-                    circles[movable.get(j).nodeID - 1].setStroke(Color.RED);
-                    circles[movable.get(j).nodeID - 1].setOnMouseClicked(event -> cleanCircle(tmp));
-                }
-
-            }
-
-        } catch (IndexOutOfBoundsException e) {
-            //do nothing
-        }
-
-
     }
 
     public void checkWinner() {

@@ -154,7 +154,7 @@ public class GameModel extends Observable {
                     for(GamePiece piece : selectedPieces){
                         piece.setNode(node);
                     }
-                    nodeBefore.gamePiecesOn.clear();
+                    nodeBefore.getGamePiecesOn().clear();
                 }
 
                 /*그냥 이동하는 경우*/
