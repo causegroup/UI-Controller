@@ -1,8 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Random;
+import java.util.*;
 
 public class GameModel extends Observable {
     ArrayList<Player> players = new ArrayList<Player>();
@@ -143,55 +141,58 @@ public class GameModel extends Observable {
         /*말이 움직이는 단계일 때*/
         else if(currentPlayer.phase == Phase.MOVE_PIECE_PHASE){
             /*이동할 수 있는 칸인 경우*/
-            if(gameBoard.movableNodes(selectedPieces.get(0).getNode(),currentPlayer.yutNums).contains(node)){
-                /*역으로 윷 숫자 계산*/
-                int selectedYutNum = gameBoard.reCalculateYutNum(selectedPieces.get(0).getNode(), node);
-                currentPlayer.yutNums.remove(currentPlayer.yutNums.indexOf(selectedYutNum));
-
+            if(gameBoard.movableNodes(selectedPieces.get(0).getNode(),currentPlayer.yutNums).contains(node)) {
                 /*완주하는 경우*/
-                if(node.nodeID == 30){
+                if (node.nodeID == 30) {
+                    int selectedYutNum = Collections.max(currentPlayer.yutNums);
+                    currentPlayer.yutNums.remove(currentPlayer.yutNums.indexOf(selectedYutNum));
                     Node nodeBefore = selectedPieces.get(0).getNode();
-                    for(GamePiece piece : selectedPieces){
+                    for (GamePiece piece : selectedPieces) {
                         piece.setNode(node);
                     }
                     nodeBefore.getGamePiecesOn().clear();
                 }
+                else{
+                    /*역으로 윷 숫자 계산*/
+                    int selectedYutNum = gameBoard.reCalculateYutNum(selectedPieces.get(0).getNode(), node);
+                    currentPlayer.yutNums.remove(currentPlayer.yutNums.indexOf(selectedYutNum));
 
-                /*그냥 이동하는 경우*/
-                /*piece.move 했더니 concurrencyError 에러 발생함*/
-                if(node.getGamePiecesOn() == null || node.getGamePiecesOn().size() < 1){
                     /*그냥 이동하는 경우*/
-                    Node nodeBefore = selectedPieces.get(0).getNode();
-                    for(GamePiece piece : selectedPieces){
-                        node.getGamePiecesOn().add(piece);
-                        piece.setNode(node);
+                    /*piece.move 했더니 concurrencyError 에러 발생함*/
+                    if (node.getGamePiecesOn() == null || node.getGamePiecesOn().size() < 1) {
+                        /*그냥 이동하는 경우*/
+                        Node nodeBefore = selectedPieces.get(0).getNode();
+                        for (GamePiece piece : selectedPieces) {
+                            node.getGamePiecesOn().add(piece);
+                            piece.setNode(node);
+                        }
+                        nodeBefore.getGamePiecesOn().clear();
                     }
-                    nodeBefore.getGamePiecesOn().clear();
-                }
-                /*업는 경우*/
-                else if(node.getGamePiecesOn().get(0).owner == currentPlayer){
-                    Node nodeBefore = selectedPieces.get(0).getNode();
-                    for(GamePiece piece : selectedPieces){
-                        node.getGamePiecesOn().add(piece);
-                        piece.setNode(node);
+                    /*업는 경우*/
+                    else if (node.getGamePiecesOn().get(0).owner == currentPlayer) {
+                        Node nodeBefore = selectedPieces.get(0).getNode();
+                        for (GamePiece piece : selectedPieces) {
+                            node.getGamePiecesOn().add(piece);
+                            piece.setNode(node);
+                        }
+                        nodeBefore.getGamePiecesOn().clear();
                     }
-                    nodeBefore.getGamePiecesOn().clear();
-                }
-                /*상대의 말을 잡은 경우*/
-                else if(node.getGamePiecesOn().get(0).owner != currentPlayer){
-                    ArrayList<GamePiece> caughtPieces = node.getGamePiecesOn();
-                    for(GamePiece caughtPiece : caughtPieces){
-                        caughtPiece.setNode(gameBoard.nodes[0]);
-                    }
-                    node.getGamePiecesOn().clear();
+                    /*상대의 말을 잡은 경우*/
+                    else if (node.getGamePiecesOn().get(0).owner != currentPlayer) {
+                        ArrayList<GamePiece> caughtPieces = node.getGamePiecesOn();
+                        for (GamePiece caughtPiece : caughtPieces) {
+                            caughtPiece.setNode(gameBoard.nodes[0]);
+                        }
+                        node.getGamePiecesOn().clear();
 
-                    Node nodeBefore = selectedPieces.get(0).getNode();
-                    for(GamePiece piece : selectedPieces){
-                        node.getGamePiecesOn().add(piece);
-                        piece.setNode(node);
+                        Node nodeBefore = selectedPieces.get(0).getNode();
+                        for (GamePiece piece : selectedPieces) {
+                            node.getGamePiecesOn().add(piece);
+                            piece.setNode(node);
+                        }
+                        nodeBefore.getGamePiecesOn().clear();
+                        currentPlayer.throwCnt++;
                     }
-                    nodeBefore.getGamePiecesOn().clear();
-                    currentPlayer.throwCnt++;
                 }
 
                 /*움직이고 나서 할 행동*/
@@ -216,7 +217,6 @@ public class GameModel extends Observable {
                 currentPlayer.phase = Phase.CHOOSE_PIECE_PHASE;
                 selectedPieces = null;
             }
-
         }
        dataChanged();
     }

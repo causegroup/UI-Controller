@@ -20,13 +20,20 @@ public class GameBoard{
         }
         return nodeList;
     }
-
+    /*30일때 안씀*/
     public int reCalculateYutNum(Node currentNode, Node nextNode){
         ArrayList<Node> nodes = new ArrayList<Node>();
         for(Node node : movableNodeTable[currentNode.nodeID]){
             nodes.add(node);
         }
-        int yutNum = nodes.indexOf(nextNode);
+        //int yutNum = nodes.indexOf(nextNode);
+
+        int yutNum;
+        for(yutNum = 0; yutNum < nodes.size(); yutNum++){
+            if(nodes.get(yutNum) == nextNode){
+                break;
+            }
+        }
         if(yutNum == 0) yutNum = -1;
         return yutNum;
     }

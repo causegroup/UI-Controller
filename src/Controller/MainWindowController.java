@@ -286,7 +286,7 @@ public class MainWindowController implements Initializable, Observer {
                 Node tmpNode = players.get(i).getGamePieceById(j).getNode();
 
                 if(!initialization) {
-                    hBoxes[i].getChildren().remove(j);
+                    //hBoxes[i].getChildren().remove(j);
                 }
                 if(tmpNode.nodeID == 30) {
                     //do nothing
@@ -367,8 +367,6 @@ public class MainWindowController implements Initializable, Observer {
             ArrayList<Node> movable = gameModel.getMovableNodes();
             for(int j=0; j<movable.size(); j++) {
                 Node tmp = gameBoard.nodes[movable.get(j).nodeID];
-                if(tmp.nodeID == 30)
-                    System.out.println(tmp.nodeID);
                 if(movable.get(j).nodeID == 0) {
                     System.out.println("error");
                 }
