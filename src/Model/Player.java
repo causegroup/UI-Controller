@@ -32,4 +32,12 @@ public class Player{
         yutNums.clear();
     }
 
+    public boolean isWin(){
+        for(GamePiece gamePiece : gamePieces){
+            if(gamePiece.getNode().nodeID != 30)
+                return false;
+        }
+        return true;
+    }
+
 }
