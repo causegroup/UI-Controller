@@ -67,6 +67,7 @@ public class MainWindowController implements Initializable, Observer {
     @FXML private Circle c27;
     @FXML private Circle c28;
     @FXML private Circle c29;
+    @FXML private Circle c30;
 
     @FXML private HBox player1;
     @FXML private HBox player2;
@@ -80,7 +81,7 @@ public class MainWindowController implements Initializable, Observer {
     @FXML private Label showTurn;
     @FXML private Label yutResult;
 
-    @FXML private Circle[] circles = new Circle[29];
+    @FXML private Circle[] circles = new Circle[30];
     @FXML private HBox[] hBoxes = new HBox[4];
     @FXML private Label[] playerLabels = new Label[4];
     @FXML private ImageView[][] node0 = new ImageView[4][5];
@@ -93,7 +94,7 @@ public class MainWindowController implements Initializable, Observer {
     private int userNum;
     private int pieceNum;
     private int yutNum;
-    private boolean initialize = true;
+    private boolean initialization;
 
     GameModel gameModel = new GameModel();
 
@@ -104,12 +105,12 @@ public class MainWindowController implements Initializable, Observer {
     Phase phase;
     ArrayList<Integer> yutNums = new ArrayList<Integer>();
     ArrayList<Player> players = new ArrayList<Player>();
-
     String[][] pieceUrls = new String[4][5];
 
 
     public void initialize(URL location, ResourceBundle resources) {
         // initialize MainWindow.
+        this.initialization = true;
         setPlayerLabels();
         setHBoxes();
         setCircles();
@@ -258,7 +259,8 @@ public class MainWindowController implements Initializable, Observer {
         this.circles[tmpNum] = c26; tmpNum++;
         this.circles[tmpNum] = c27; tmpNum++;
         this.circles[tmpNum] = c28; tmpNum++;
-        this.circles[tmpNum] = c29;
+        this.circles[tmpNum] = c29; tmpNum++;
+        this.circles[tmpNum] = c30;
     }
 
     public void setPlayers() {
@@ -272,26 +274,27 @@ public class MainWindowController implements Initializable, Observer {
                 tmp.setFitWidth(69.6);
                 node0[i][j] = tmp;
 
+
                 Node tmpNode = players.get(i).getGamePieceById(j).getNode();
 
-                if(!initialize) {
+                if(!initialization) {
                     hBoxes[i].getChildren().remove(j);
                 }
                 if(tmpNode.nodeID == 30) {
                     //do nothing
                 }
                 else if(tmpNode.nodeID == 0) {
-                    hBoxes[i].getChildren().addAll(node0[i][j]);
+                    hBoxes[i].getChildren().add(j, tmp);
                 }
                 else {
                     tmp.setOpacity(0.5);
-                    hBoxes[i].getChildren().addAll(node0[i][j]);
+                    hBoxes[i].getChildren().add(j, tmp);
                 }
             }
 
             playerLabels[i].setText("Player " + (i+1));
         }
-        this.initialize = false;
+        this.initialization = false;
     }
     public void setTurn() {
         this.showTurn.setText("플레이어" + this.turn + "의 턴입니다.\n"
@@ -323,7 +326,7 @@ public class MainWindowController implements Initializable, Observer {
             try {
                 int tmpPlayerID = gameBoard.nodes[i].gamePiecesOn.get(0).owner.getPlayerID();
                 int tmpPieceNum = gameBoard.nodes[i].gamePiecesOn.size();
-                Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum]);
+                Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum-1]);
                 circles[i - 1].setFill(new ImagePattern(tmp));
             } catch(IndexOutOfBoundsException e) {
                 //do nothing
@@ -333,22 +336,53 @@ public class MainWindowController implements Initializable, Observer {
     public void showPieces() {
         for(int i = 0; i < pieceNum; i++) {
             GamePiece tmp = players.get(this.turn - 1).getGamePieceById(i);
-            System.out.println(tmp.pieceID + ":" + tmp.getNode().nodeID);
             if (tmp.getNode().nodeID == 0) {
                 ColorAdjust colorAdjust = new ColorAdjust();
                 colorAdjust.setBrightness(-0.5);
-                node0[this.turn - 1][i].setEffect(colorAdjust);
-                node0[this.turn - 1][i].setOnMouseClicked(event -> gameModel.pieceOutsideBoardClickEvent(tmp));
+                hBoxes[turn-1].setEffect(colorAdjust);
+                hBoxes[turn-1].setOnMouseClicked(event -> cleanOutside(tmp));
             } else if (tmp.getNode().nodeID > 29) {
                 //do nothing
             } else {
-                circles[tmp.getNode().nodeID].setStroke(Color.BLUE);
-                circles[tmp.getNode().nodeID].setOnMouseClicked(event -> gameModel.nodeClickEvent(tmp.getNode()));
+                circles[tmp.getNode().nodeID-1].setStroke(Color.BLUE);
+                circles[tmp.getNode().nodeID-1].setOnMouseClicked(event -> cleanCircle(tmp.getNode()));
             }
         }
     }
+    public void cleanOutside(GamePiece input) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(0);
+        hBoxes[turn-1].setOnMouseClicked(null);
+        hBoxes[turn-1].setEffect(colorAdjust);
+
+        gameModel.pieceOutsideBoardClickEvent(input);
+    }
+    public void cleanCircle(Node input) {
+        for(int i = 0; i < 30; i++) {
+            circles[i].setOnMouseClicked(null);
+            circles[i].setStroke(Color.BLACK);
+        }
+        gameModel.nodeClickEvent(input);
+    }
 
     public void showMovableNodes() {
+        try {
+            ArrayList<Node> movable = gameModel.getMovableNodes();
+            for(int j=0; j<movable.size(); j++) {
+                if(movable.get(j).nodeID == 0) {
+                    System.out.println("error");
+                }
+                else {
+                    Node tmp = gameBoard.nodes[movable.get(j).nodeID];
+                    circles[movable.get(j).nodeID - 1].setStroke(Color.RED);
+                    circles[movable.get(j).nodeID - 1].setOnMouseClicked(event -> cleanCircle(tmp));
+                }
+
+            }
+
+        } catch (IndexOutOfBoundsException e) {
+            //do nothing
+        }
 
 
     }

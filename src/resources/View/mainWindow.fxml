@@ -100,5 +100,11 @@
          </font>
       </Label>
       <Label fx:id="yutResult" layoutX="1295.0" layoutY="673.0" prefHeight="94.0" prefWidth="268.0" />
+      <Circle fx:id="c30" fill="WHITE" layoutX="1438.0" layoutY="839.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+      <Label layoutX="1401.0" layoutY="811.0" prefHeight="57.0" prefWidth="74.0" text="도착">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

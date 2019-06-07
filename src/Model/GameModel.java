@@ -86,7 +86,7 @@ public class GameModel extends Observable {
                 currentPlayer.phase = Phase.CHOOSE_PIECE_PHASE;
                 currentPlayer.throwCnt--;
             }
-            if (yutNum == -1) {
+            if (yutNum == -1 && currentPlayer.yutNums.size() == 1) {
                 for (GamePiece piece : currentPlayer.gamePieces) {
                     if (piece.getNode().nodeID != 0)
                         cannotMoveFlag = false;
