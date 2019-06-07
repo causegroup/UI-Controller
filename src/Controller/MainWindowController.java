@@ -326,10 +326,16 @@ public class MainWindowController implements Initializable, Observer {
             try {
                 int tmpPlayerID = gameBoard.nodes[i].gamePiecesOn.get(0).owner.getPlayerID();
                 int tmpPieceNum = gameBoard.nodes[i].gamePiecesOn.size();
-                Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum-1]);
-                circles[i - 1].setFill(new ImagePattern(tmp));
+                if(tmpPieceNum > 0){
+                    Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum-1]);
+                    circles[i - 1].setFill(new ImagePattern(tmp));
+                }
+                else{
+                    System.out.println("nodeID: " + i);
+                }
             } catch(IndexOutOfBoundsException e) {
-                //do nothing
+                circles[i-1].setFill(null);
+                //System.out.println("exception: nodeID: " + i);
             }
         }
     }
