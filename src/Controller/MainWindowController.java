@@ -137,10 +137,11 @@ public class MainWindowController implements Initializable, Observer {
             this.yutNums = tmpGameModel.getYutNums();
             this.players = tmpGameModel.getPlayers();
             this.winner = tmpGameModel.getWinner();
+
+            checkWinner();
             if(this.yutNums.size() > 0) {
                 setResult(this.yutNums.get(this.yutNums.size()-1));
             }
-            checkWinner();
             setTurn();
             setYutResult();
             setPlayers();
@@ -286,9 +287,11 @@ public class MainWindowController implements Initializable, Observer {
                 Node tmpNode = players.get(i).getGamePieceById(j).getNode();
 
                 if(!initialization) {
-                    //hBoxes[i].getChildren().remove(j);
+                    hBoxes[i].getChildren().remove(j);
                 }
                 if(tmpNode.nodeID == 30) {
+                    tmp.setImage(null);
+                    hBoxes[i].getChildren().add(j,tmp);
                     //do nothing
                 }
                 else if(tmpNode.nodeID == 0) {
@@ -411,9 +414,10 @@ public class MainWindowController implements Initializable, Observer {
         }
         else {
             try {
-                String winnerMsg = "Player " + winner.getPlayerID() + " win!\nRegame?";
+                String winnerMsg = "Player " + winner.getPlayerID() + " win! Regame?";
+                System.out.println(winnerMsg);
                 EndWindowController endWindowController = new EndWindowController(winnerMsg);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/settingWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/endWindow.fxml"));
                 loader.setController(endWindowController);
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(loader.load()));

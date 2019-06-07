@@ -197,12 +197,11 @@ public class GameModel extends Observable {
 
                 /*움직이고 나서 할 행동*/
                 selectedPieces = null;
-                if(currentPlayer.throwCnt == 0 && currentPlayer.yutNums.size() == 0){
-                    if(currentPlayer.isWin()){
-                        /*누군가 승리함*/
-                        winner = currentPlayer;
-                        return;
-                    }
+                if(currentPlayer.isWin()){
+                    /*누군가 승리함*/
+                    winner = currentPlayer;
+                }
+                else if(currentPlayer.throwCnt == 0 && currentPlayer.yutNums.size() == 0){
                     changeTurn();
                 }
                 else if (currentPlayer.throwCnt > 0 && currentPlayer.yutNums.size() == 0){
