@@ -342,8 +342,7 @@ public class MainWindowController implements Initializable, Observer {
                     System.out.println("nodeID: " + i);
                 }
             } catch(IndexOutOfBoundsException e) {
-                circles[i-1].setFill(null);
-                //System.out.println("exception: nodeID: " + i);
+                circles[i-1].setFill(Color.WHITE);
             }
         }
     }
