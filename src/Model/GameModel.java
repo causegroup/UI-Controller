@@ -11,7 +11,7 @@ public class GameModel extends Observable {
     ArrayList<GamePiece> selectedPieces = new ArrayList<GamePiece>();
     GameBoard gameBoard = new GameBoard();
     Player winner = null;
-
+    public Player getWinner() { return this.winner; }
     public GameBoard getGameBoard() { return this.gameBoard; }
     public int getTurn(){
         return turn;
