@@ -10,6 +10,7 @@ public class GameModel extends Observable {
     int turn;
     ArrayList<GamePiece> selectedPieces = new ArrayList<GamePiece>();
     GameBoard gameBoard = new GameBoard();
+    Player winner = null;
 
     public GameBoard getGameBoard() { return this.gameBoard; }
     public int getTurn(){
@@ -147,6 +148,13 @@ public class GameModel extends Observable {
                 currentPlayer.yutNums.remove(currentPlayer.yutNums.indexOf(selectedYutNum));
 
                 /*완주하는 경우*/
+                if(node.nodeID == 30){
+                    Node nodeBefore = selectedPieces.get(0).getNode();
+                    for(GamePiece piece : selectedPieces){
+                        piece.setNode(node);
+                    }
+                    nodeBefore.gamePiecesOn.clear();
+                }
 
                 /*그냥 이동하는 경우*/
                 /*piece.move 했더니 concurrencyError 에러 발생함*/
@@ -188,6 +196,11 @@ public class GameModel extends Observable {
                 /*움직이고 나서 할 행동*/
                 selectedPieces = null;
                 if(currentPlayer.throwCnt == 0 && currentPlayer.yutNums.size() == 0){
+                    if(currentPlayer.isWin()){
+                        /*누군가 승리함*/
+                        winner = currentPlayer;
+                        return;
+                    }
                     changeTurn();
                 }
                 else if (currentPlayer.throwCnt > 0 && currentPlayer.yutNums.size() == 0){
