@@ -138,7 +138,9 @@ public class MainWindowController implements Initializable, Observer {
             this.players = tmpGameModel.getPlayers();
             this.winner = tmpGameModel.getWinner();
 
-            checkWinner();
+            if(this.winner != null) {
+                checkWinner();
+            }
             if(this.yutNums.size() > 0) {
                 setResult(this.yutNums.get(this.yutNums.size()-1));
             }
@@ -414,13 +416,15 @@ public class MainWindowController implements Initializable, Observer {
         }
         else {
             try {
-                String winnerMsg = "Player " + winner.getPlayerID() + " win! Regame?";
-                System.out.println(winnerMsg);
-                EndWindowController endWindowController = new EndWindowController(winnerMsg);
+                Stage oldStage = (Stage) randomButton.getScene().getWindow();
+                oldStage.close();
+                String winnerMsg = "Player " + (winner.getPlayerID() +1) + " win! Regame?";
+                EndWindowController endWindowController = new EndWindowController();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/endWindow.fxml"));
                 loader.setController(endWindowController);
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(loader.load()));
+                newStage.setTitle(winnerMsg);
                 newStage.show();
             } catch (IOException e) {
                 e.printStackTrace();

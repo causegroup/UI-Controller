@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -28,23 +29,21 @@ import javafx.stage.Stage;
 import sun.net.www.content.image.png;
 
 public class EndWindowController implements Initializable {
-    @FXML private Label winnerLabel;
     @FXML private Button reGameButton;
-    @FXML private Button quitButtion;
+    @FXML private Button quitButton;
 
-    private String winnerMsg;
-
-    public EndWindowController(String input) {
-        this.winnerMsg = input;
-    }
 
     public void initialize(URL location, ResourceBundle resources) {
-        winnerLabel.setText(winnerMsg);
-        reGameButton.setOnAction(event -> reGame());
-        quitButtion.setOnAction(event -> quit());
+        reGameButton.setOnAction(event -> reGame(event));
+        quitButton.setOnAction(event -> quit(event));
     }
-    public void reGame() {
+
+    public void reGame(ActionEvent event) {
         try {
+            Button tmp = (Button) event.getSource();
+            Stage oldStage = (Stage) tmp.getScene().getWindow();
+            oldStage.close();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/settingWindow.fxml"));
             Stage newStage = new Stage();
             newStage.setScene(new Scene(loader.load()));
@@ -55,7 +54,8 @@ public class EndWindowController implements Initializable {
         }
 
     }
-    public void quit() {
+
+    public void quit(ActionEvent event) {
         Platform.exit();
     }
 }
