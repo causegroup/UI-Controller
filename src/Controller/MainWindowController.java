@@ -334,7 +334,6 @@ public class MainWindowController implements Initializable, Observer {
             try {
                 int tmpPlayerID = gameBoard.nodes[i].gamePiecesOn.get(0).owner.getPlayerID();
                 int tmpPieceNum = gameBoard.nodes[i].gamePiecesOn.size();
-
                 if(tmpPieceNum > 0){
                     Image tmp = new Image(pieceUrls[tmpPlayerID][tmpPieceNum-1]);
                     circles[i - 1].setFill(new ImagePattern(tmp));
@@ -343,7 +342,8 @@ public class MainWindowController implements Initializable, Observer {
                     System.out.println("nodeID: " + i);
                 }
             } catch(IndexOutOfBoundsException e) {
-                circles[i-1].setFill(Color. WHITE);
+                circles[i-1].setFill(null);
+                //System.out.println("exception: nodeID: " + i);
             }
         }
     }
