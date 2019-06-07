@@ -204,7 +204,7 @@ public class GameModel extends Observable {
                 else if(currentPlayer.throwCnt == 0 && currentPlayer.yutNums.size() == 0){
                     changeTurn();
                 }
-                else if (currentPlayer.throwCnt > 0 && currentPlayer.yutNums.size() == 0){
+                else if (currentPlayer.throwCnt > 0){
                     currentPlayer.phase = Phase.THROW_YUT_PHASE;
                 }
                 else if (currentPlayer.throwCnt == 0 && currentPlayer.yutNums.size() > 0){
