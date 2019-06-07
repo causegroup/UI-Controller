@@ -29,6 +29,10 @@ public class GameModel extends Observable {
         }
     }
 
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
+
     public ArrayList<Integer> getYutNums(){
         if(players.get(turn).yutNums.size() > 0)
             return  players.get(turn).yutNums;
@@ -57,7 +61,6 @@ public class GameModel extends Observable {
                 piece.setNode(gameBoard.nodes[0]);
             }
         }
-        dataChanged();
     }
     public void start(){
 

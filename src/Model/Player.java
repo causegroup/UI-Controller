@@ -13,6 +13,7 @@ public class Player{
         this.playerID = playerID;
         throwCnt = 0;
     }
+    public int getPlayerID() { return this.playerID; }
     public void createPiece(int cnt){
         for(int pieceID = 0; pieceID < cnt; pieceID++) {
             gamePieces.add(new GamePiece(this, pieceID));

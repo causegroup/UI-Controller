@@ -79,7 +79,8 @@ public class MainWindowController implements Initializable, Observer {
     @FXML private Label yutResult;
 
     @FXML private Circle[] circles = new Circle[29];
-
+    @FXML private HBox[] hBoxes = new HBox[4];
+    @FXML private Label[] playerLabels = new Label[4];
 
     /*
     * userNum : # of players.
@@ -89,6 +90,7 @@ public class MainWindowController implements Initializable, Observer {
     private int userNum;
     private int pieceNum;
     private int yutNum;
+    private boolean initialize = true;
 
     GameModel gameModel = new GameModel();
 
@@ -98,16 +100,21 @@ public class MainWindowController implements Initializable, Observer {
     GameBoard gameBoard = new GameBoard();
     Phase phase;
     ArrayList<Integer> yutNums = new ArrayList<Integer>();
+    ArrayList<Player> players = new ArrayList<Player>();
+
+    String[][] pieceUrls = new String[4][5];
+
 
     public void initialize(URL location, ResourceBundle resources) {
         // initialize MainWindow.
+        setPlayerLabels();
+        setHBoxes();
+        setCircles();
+        setPieceUrls();
+
         gameModel.init(userNum, pieceNum);
         gameModel.start();
-        setPlayers();
-        setCircles();
 
-        setTurn();
-        setYutResult();
 
         randomButton.setOnAction(event -> randomResult());
         selectButton.setOnAction(event -> selectResult());
@@ -123,9 +130,31 @@ public class MainWindowController implements Initializable, Observer {
             this.turn = tmpGameModel.getTurn() + 1;
             this.phase = tmpGameModel.getPhase();
             this.yutNums = tmpGameModel.getYutNums();
+            this.players = tmpGameModel.getPlayers();
+
             setTurn();
             setYutResult();
+            setPlayers();
+            setGameBoard();
         }
+    }
+    public void setPlayerLabels() {
+        playerLabels[0] = p1;
+        playerLabels[1] = p2;
+        playerLabels[2] = p3;
+        playerLabels[3] = p4;
+    }
+    public void setHBoxes() {
+        hBoxes[0] = player1;
+        hBoxes[1] = player2;
+        hBoxes[2] = player3;
+        hBoxes[3] = player4;
+    }
+    public void setPieceUrls() {
+        pieceUrls[0] = new String[] {"resources/images/player1.png", "resources/images/player1-2.png", "resources/images/player1-3.png", "resources/images/player1-4.png", "resources/images/player1-5.png"};
+        pieceUrls[1] = new String[] {"resources/images/player2.png", "resources/images/player2-2.png", "resources/images/player2-3.png", "resources/images/player2-4.png", "resources/images/player2-5.png"};
+        pieceUrls[2] = new String[] {"resources/images/player3.png", "resources/images/player3-2.png", "resources/images/player3-3.png", "resources/images/player3-4.png", "resources/images/player3-5.png"};
+        pieceUrls[3] = new String[] {"resources/images/player4.png", "resources/images/player4-2.png", "resources/images/player4-3.png", "resources/images/player4-4.png", "resources/images/player4-5.png"};
     }
 
 
@@ -230,41 +259,35 @@ public class MainWindowController implements Initializable, Observer {
     }
 
     public void setPlayers() {
-
         for(int i = 0; i < this.userNum; i++) {
             for(int j =0; j < this.pieceNum; j++) {
                 ImageView tmp = new ImageView();
                 Image tmpImg;
+                tmpImg = new Image(pieceUrls[i][0]);
+                tmp.setImage(tmpImg);
                 tmp.setFitHeight(100);
                 tmp.setFitWidth(69.6);
-                switch(i) {
-                    case 0:
-                        tmpImg = new Image("resources/images/player1.png");
-                        tmp.setImage(tmpImg);
-                        player1.getChildren().addAll(tmp);
-                        p1.setText("Player 1");
-                        break;
-                    case 1:
-                        tmpImg = new Image("resources/images/player2.png");
-                        tmp.setImage(tmpImg);
-                        player2.getChildren().addAll(tmp);
-                        p2.setText("Player 2");
-                        break;
-                    case 2:
-                        tmpImg = new Image("resources/images/player3.png");
-                        tmp.setImage(tmpImg);
-                        player3.getChildren().addAll(tmp);
-                        p3.setText("Player 3");
-                        break;
-                    case 3:
-                        tmpImg = new Image("resources/images/player4.png");
-                        tmp.setImage(tmpImg);
-                        player4.getChildren().addAll(tmp);
-                        p4.setText("Player 4");
-                        break;
+
+                Node tmpNode = players.get(i).getGamePieceById(j).getNode();
+
+                System.out.println(tmpNode.nodeID);
+                if(!initialize) {
+                    hBoxes[i].getChildren().remove(j);
+                }
+                if(tmpNode.nodeID == 30) {
+                    //do nothing
+                }
+                else if(tmpNode.nodeID == 0) {
+                    hBoxes[i].getChildren().addAll(tmp);
+                }
+                else {
+                    tmp.setOpacity(0.5);
+                    hBoxes[i].getChildren().addAll(tmp);
                 }
             }
+            playerLabels[i].setText("Player " + (i+1));
         }
+        this.initialize = false;
     }
     public void setTurn() {
         this.showTurn.setText("플레이어" + this.turn + "의 턴입니다.\n"
@@ -276,6 +299,43 @@ public class MainWindowController implements Initializable, Observer {
     }
     public void setGameBoard() {
         // Should initialize circles[] state : # of gamepieces, who has that gamepiece.
+        switch(this.phase) {
+            case THROW_YUT_PHASE:
+                showNodes();
+                break;
+            case CHOOSE_PIECE_PHASE:
+                showNodes();
+                showPieces();
+                break;
+            case MOVE_PIECE_PHASE:
+                showNodes();
+                showMovableNodes();
+                break;
+        }
 
     }
+
+    public void showNodes() {
+        /*for(int i = 1; i < 30; i++) {
+            for(int j = 0; j < gameBoard.nodes[i].gamePiecesOn.size(); j++)
+                switch(gameBoard.nodes[i].gamePiecesOn.get(0).owner.getPlayerID()) {
+                    case 0:
+                        for(int )
+                    case 1:
+                    case 2:
+                    case 3:
+
+                }
+
+        }*/
+    }
+
+    public void showPieces() {
+
+    }
+
+    public void showMovableNodes() {
+
+    }
+
 }
