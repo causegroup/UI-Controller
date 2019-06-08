@@ -100,10 +100,22 @@ public class testFX {
         robot.clickOn("#yutSelectButton");
 
         //첫번째 피스 이동
+        // 플레이어의 피스를 선언
+        for (int user = 1; user <= numOfUser; user++) {
+            for (Node node: player[user].getChildren()) {
+                piece[user][player[user].getChildren().indexOf(node)+1] = node;
+            }
+        }
         robot.clickOn(piece[1][1]);
         robot.clickOn("#c5");
 
         //두번째 피스 이동해서 첫번째에 업힌다.
+        // 플레이어의 피스를 선언
+        for (int user = 1; user <= numOfUser; user++) {
+            for (Node node: player[user].getChildren()) {
+                piece[user][player[user].getChildren().indexOf(node)+1] = node;
+            }
+        }
         robot.clickOn(piece[1][2]);
         robot.clickOn("#c5");
 
