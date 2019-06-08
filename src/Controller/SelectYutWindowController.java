@@ -19,7 +19,7 @@ public class SelectYutWindowController implements Initializable {
     * Button : close the window when it is clicked.
     * yutNum : selected result.
     * */
-    @FXML private Button selectButton;
+    @FXML private Button yutSelectButton;
     @FXML private ImageView backdoe;
     @FXML private ImageView doe;
     @FXML private ImageView gae;
@@ -42,7 +42,7 @@ public class SelectYutWindowController implements Initializable {
         girl.setOnMouseClicked(event -> setYutNum(3, event));
         yut.setOnMouseClicked(event -> setYutNum(4, event));
         mo.setOnMouseClicked(event -> setYutNum(5, event));
-        selectButton.setOnAction(event -> closeWindow(event));
+        yutSelectButton.setOnAction(event -> closeWindow(event));
     }
 
     public int getYutNum() {

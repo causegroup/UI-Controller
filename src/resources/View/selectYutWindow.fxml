@@ -63,7 +63,7 @@
    <bottom>
       <Pane prefHeight="142.0" prefWidth="840.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="349.0" layoutY="31.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="142.0" text="선택" fx:id="selectButton">
+            <Button layoutX="349.0" layoutY="31.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="142.0" text="선택" fx:id="yutSelectButton">
                <font>
                   <Font size="24.0" />
                </font>

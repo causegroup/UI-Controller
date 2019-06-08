@@ -85,12 +85,19 @@ public class testFX {
 
         robot.clickOn("#selectButton");
         robot.clickOn("#mo");
+        robot.clickOn("#yutSelectButton");
+
         robot.clickOn("#selectButton");
         robot.clickOn("#mo");
+        robot.clickOn("#yutSelectButton");
+
         robot.clickOn("#selectButton");
         robot.clickOn("#mo");
+        robot.clickOn("#yutSelectButton");
+
         robot.clickOn("#selectButton");
         robot.clickOn("#girl");
+        robot.clickOn("#yutSelectButton");
 
         //첫번째 피스 이동
         robot.clickOn(piece[1][1]);
@@ -109,7 +116,7 @@ public class testFX {
         robot.clickOn("#c30");
 
     }
-
+    /*
     @Test
     void can_catch_the_two_piece(FxRobot robot) {
         int numOfUser = 2;
@@ -223,7 +230,7 @@ public class testFX {
         robot.clickOn("#c1");
     }
 
-
+*/
 
 
 
