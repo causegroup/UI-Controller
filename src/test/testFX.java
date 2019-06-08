@@ -46,8 +46,6 @@ public class testFX {
         primaryStage.toFront();
     }
 
-
-
     @Test
     void can_execute_win_result(FxRobot robot) {
         int numOfUser = 2;
@@ -76,12 +74,6 @@ public class testFX {
 
         // 플레이어의 피스를 선언
         Node[][] piece = new Node[numOfUser+1][numOfPiece+1];
-        for (int user = 1; user <= numOfUser; user++) {
-            for (Node node: player[user].getChildren()) {
-                piece[user][player[user].getChildren().indexOf(node)+1] = node;
-            }
-        }
-
 
         robot.clickOn("#selectButton");
         robot.clickOn("#mo");
@@ -127,8 +119,12 @@ public class testFX {
         robot.clickOn("#c25");
         robot.clickOn("#c30");
 
+        //종료
+        //robot.clickOn("#quitButton");
+
     }
-    /*
+
+
     @Test
     void can_catch_the_two_piece(FxRobot robot) {
         int numOfUser = 2;
@@ -157,33 +153,50 @@ public class testFX {
 
         // 플레이어의 피스를 선언
         Node[][] piece = new Node[numOfUser+1][numOfPiece+1];
+
+        //첫번째피스이동
+        robot.clickOn("#selectButton");
+        robot.clickOn("#girl");
+        robot.clickOn("#yutSelectButton");
+        //피스 가져옴
         for (int user = 1; user <= numOfUser; user++) {
             for (Node node: player[user].getChildren()) {
                 piece[user][player[user].getChildren().indexOf(node)+1] = node;
             }
         }
-
-        //첫번째피스이동
-        robot.clickOn("#selectButton");
-        robot.clickOn("#girl");
         robot.clickOn(piece[1][1]);
         robot.clickOn("#c3");
 
         //두번째피스이동
         robot.clickOn("#selectButton");
         robot.clickOn("#gae");
+        robot.clickOn("#yutSelectButton");
+        //피스 가져옴
+        for (int user = 1; user <= numOfUser; user++) {
+            for (Node node: player[user].getChildren()) {
+                piece[user][player[user].getChildren().indexOf(node)+1] = node;
+            }
+        }
         robot.clickOn(piece[2][1]);
         robot.clickOn("#c2");
 
         //세번째피스를 첫번째에 업는다.
         robot.clickOn("#selectButton");
         robot.clickOn("#girl");
+        robot.clickOn("#yutSelectButton");
+        //피스 가져옴
+        for (int user = 1; user <= numOfUser; user++) {
+            for (Node node: player[user].getChildren()) {
+                piece[user][player[user].getChildren().indexOf(node)+1] = node;
+            }
+        }
         robot.clickOn(piece[1][2]);
         robot.clickOn("#c3");
 
         //두번째로 엎은 말을 캐치
         robot.clickOn("#selectButton");
         robot.clickOn("#doe");
+        robot.clickOn("#yutSelectButton");
         robot.clickOn("#c2");
         robot.clickOn("#c3");
 
@@ -217,32 +230,41 @@ public class testFX {
 
         // 플레이어의 피스를 선언
         Node[][] piece = new Node[numOfUser+1][numOfPiece+1];
+
+
+        //첫번째피스이동
+        robot.clickOn("#selectButton");
+        robot.clickOn("#gae");
+        robot.clickOn("#yutSelectButton");
         for (int user = 1; user <= numOfUser; user++) {
             for (Node node: player[user].getChildren()) {
                 piece[user][player[user].getChildren().indexOf(node)+1] = node;
             }
         }
-
-        //첫번째피스이동
-        robot.clickOn("#selectButton");
-        robot.clickOn("#gae");
         robot.clickOn(piece[1][1]);
         robot.clickOn("#c2");
 
         //두번째피스이동
         robot.clickOn("#selectButton");
         robot.clickOn("#doe");
+        robot.clickOn("#yutSelectButton");
+        for (int user = 1; user <= numOfUser; user++) {
+            for (Node node: player[user].getChildren()) {
+                piece[user][player[user].getChildren().indexOf(node)+1] = node;
+            }
+        }
         robot.clickOn(piece[2][1]);
         robot.clickOn("#c1");
 
         //첫번째피스 백도로 두번째 피스를 잡는다.
         robot.clickOn("#selectButton");
         robot.clickOn("#backdoe");
+        robot.clickOn("#yutSelectButton");
         robot.clickOn("#c2");
         robot.clickOn("#c1");
     }
 
-*/
+
 
 
 
