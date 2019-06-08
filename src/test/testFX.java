@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -26,24 +28,16 @@ import static org.junit.Assert.assertNotNull;
 
 @ExtendWith(ApplicationExtension.class)
 public class testFX {
-    @Before
+    @BeforeEach
     public void setUp () throws Exception {
+        FxToolkit.setupApplication(Main.class);
     }
+    
 
-    /**
-     * Will be called with {@code @Before} semantics, i. e. before each test method.
-     *
-     * @param primaryStage - Will be injected by the test runner.
-     */
-    @Start
-    private void start(Stage primaryStage) throws IOException, TimeoutException {
+    @AfterEach
+    public void tearDown () throws Exception {
+        FxToolkit.cleanupStages();
 
-        Parent root = FXMLLoader.load(Main.class.getClass().getResource("/resources/View/settingWindow.fxml"));
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle("Game Setting - 유저 수 / 말 수");
-        primaryStage.show();
-        primaryStage.setResizable(false);
-        primaryStage.toFront();
     }
 
     @Test
@@ -285,10 +279,4 @@ public class testFX {
         // or (lookup by css class):
         FxAssert.verifyThat(".button", LabeledMatchers.hasText("clicked!"));
     }*/
-
-    @After
-    public void tearDown () throws Exception {
-        FxToolkit.hideStage();
-
-    }
 }
