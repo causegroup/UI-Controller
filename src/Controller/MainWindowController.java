@@ -116,6 +116,8 @@ public class MainWindowController implements Initializable, Observer {
         setHBoxes();
         setCircles();
         setPieceUrls();
+        setHandlers();
+
 
         gameModel.init(userNum, pieceNum);
         gameModel.start();
@@ -140,21 +142,18 @@ public class MainWindowController implements Initializable, Observer {
             if(this.yutNums.size() > 0) {
                 setResult(this.yutNums.get(this.yutNums.size()-1));
             }
-            setThrow();
+
             setTurn();
             setYutResult();
             setPlayers();
             setGameBoard();
         }
     }
-    public void setThrow() {
-        if(this.phase == Phase.THROW_YUT_PHASE) {
-            randomButton.setOnAction(event -> randomResult());
-            selectButton.setOnAction(event -> selectResult());
-        }
-        else {
-            randomButton.setOnAction(null);
-            selectButton.setOnAction(null);
+    public void setHandlers() {
+        for(int i=0;i<30;i++) {
+            int tmp = i;
+            circles[tmp].setOnMouseClicked(event -> cleanCircle(gameBoard.nodes[tmp+1]));
+
         }
     }
     public void setPlayerLabels() {
@@ -408,13 +407,14 @@ public class MainWindowController implements Initializable, Observer {
     public void clean() {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0);
-        hBoxes[turn-1].setOnMouseClicked(null);
-        hBoxes[turn-1].setEffect(colorAdjust);
-
-        for(int i = 0; i < 30; i++) {
-            circles[i].setOnMouseClicked(null);
-            circles[i].setStroke(Color.BLACK);
+        if(this.phase == Phase.MOVE_PIECE_PHASE) {
+            hBoxes[turn - 1].setOnMouseClicked(null);
+            hBoxes[turn - 1].setEffect(colorAdjust);
+            for(int i = 0; i < 30; i++) {
+                circles[i].setStroke(Color.BLACK);
+            }
         }
+
     }
 
     public void checkWinner() {
@@ -438,5 +438,4 @@ public class MainWindowController implements Initializable, Observer {
             }
         }
     }
-
 }
