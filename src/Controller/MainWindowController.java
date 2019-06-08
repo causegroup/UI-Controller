@@ -142,18 +142,28 @@ public class MainWindowController implements Initializable, Observer {
             if(this.yutNums.size() > 0) {
                 setResult(this.yutNums.get(this.yutNums.size()-1));
             }
-
+            setThrow();
             setTurn();
             setYutResult();
             setPlayers();
             setGameBoard();
         }
     }
+
+    public void setThrow() {
+        if (this.phase == Phase.THROW_YUT_PHASE) {
+            randomButton.setOnAction(event -> randomResult());
+            selectButton.setOnAction(event -> selectResult());
+        } else {
+            randomButton.setOnAction(null);
+            selectButton.setOnAction(null);
+        }
+    }
+
     public void setHandlers() {
         for(int i=0;i<30;i++) {
             int tmp = i;
             circles[tmp].setOnMouseClicked(event -> cleanCircle(gameBoard.nodes[tmp+1]));
-
         }
     }
     public void setPlayerLabels() {
