@@ -120,10 +120,6 @@ public class MainWindowController implements Initializable, Observer {
         gameModel.init(userNum, pieceNum);
         gameModel.start();
 
-
-        randomButton.setOnAction(event -> randomResult());
-        selectButton.setOnAction(event -> selectResult());
-
         setResult("resources/images/default.jpg");
         //Testcase for pointer of circles[index] and change circle image.
     }
@@ -144,10 +140,21 @@ public class MainWindowController implements Initializable, Observer {
             if(this.yutNums.size() > 0) {
                 setResult(this.yutNums.get(this.yutNums.size()-1));
             }
+            setThrow();
             setTurn();
             setYutResult();
             setPlayers();
             setGameBoard();
+        }
+    }
+    public void setThrow() {
+        if(this.phase == Phase.THROW_YUT_PHASE) {
+            randomButton.setOnAction(event -> randomResult());
+            selectButton.setOnAction(event -> selectResult());
+        }
+        else {
+            randomButton.setOnAction(null);
+            selectButton.setOnAction(null);
         }
     }
     public void setPlayerLabels() {
@@ -418,13 +425,13 @@ public class MainWindowController implements Initializable, Observer {
             try {
                 Stage oldStage = (Stage) randomButton.getScene().getWindow();
                 oldStage.close();
-                String winnerMsg = "Player " + (winner.getPlayerID() +1) + " win! Regame?";
-                EndWindowController endWindowController = new EndWindowController();
+                String winnerMsg = "Player " + (winner.getPlayerID() +1) +"win!";
+                EndWindowController endWindowController = new EndWindowController(winnerMsg);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/View/endWindow.fxml"));
                 loader.setController(endWindowController);
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(loader.load()));
-                newStage.setTitle(winnerMsg);
+                newStage.setTitle("게임종료");
                 newStage.show();
             } catch (IOException e) {
                 e.printStackTrace();

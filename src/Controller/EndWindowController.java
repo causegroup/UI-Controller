@@ -31,9 +31,15 @@ import sun.net.www.content.image.png;
 public class EndWindowController implements Initializable {
     @FXML private Button reGameButton;
     @FXML private Button quitButton;
+    @FXML private Label winnerMsg;
 
+    private String win;
+    public EndWindowController (String input) {
+        this.win = input;
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
+        winnerMsg.setText(win);
         reGameButton.setOnAction(event -> reGame(event));
         quitButton.setOnAction(event -> quit(event));
     }

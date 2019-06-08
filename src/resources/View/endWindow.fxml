@@ -12,10 +12,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-
 <AnchorPane prefHeight="226.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="quitButton" layoutX="269.0" layoutY="144.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="144.0" text="종료" />
       <Button fx:id="reGameButton" layoutX="13.0" layoutY="144.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="144.0" text="다시하기" />
+      <Label fx:id="winnerMsg" layoutX="106.0" layoutY="74.0" prefHeight="39.0" prefWidth="214.0" text="Label">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
